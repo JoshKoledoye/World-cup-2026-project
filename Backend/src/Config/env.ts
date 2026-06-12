@@ -4,6 +4,9 @@ import "dotenv/config";
 const envSchema = z.object({
   PORT: z.string().default("5000").transform(Number),
   MONGO_DB_URI: z.string().min(1, "MongoDB URI is required"), // Safer than .url()
+  API_FOOTBALL_SECRET_KEY: z
+    .string()
+    .min(1, "API Football secret key is required"),
   JWT_ACCESS_SECRET: z
     .string()
     .min(32, "Access secret must be at least 32 chars"),
