@@ -8,7 +8,7 @@ const envSchema = z.object({
     .string()
     .min(1, "API Football secret key is required"),
 
-    // JWT commented out since clerk will likely be used for auth
+  // JWT commented out since clerk will likely be used for auth
 
   // JWT_ACCESS_SECRET: z
   //   .string()
@@ -16,7 +16,7 @@ const envSchema = z.object({
   // JWT_REFRESH_SECRET: z
   //   .string()
   //   .min(32, "Refresh secret must be at least 32 chars"),
-  
+
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
