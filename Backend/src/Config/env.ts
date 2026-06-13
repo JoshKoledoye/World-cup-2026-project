@@ -7,12 +7,16 @@ const envSchema = z.object({
   API_FOOTBALL_SECRET_KEY: z
     .string()
     .min(1, "API Football secret key is required"),
-  JWT_ACCESS_SECRET: z
-    .string()
-    .min(32, "Access secret must be at least 32 chars"),
-  JWT_REFRESH_SECRET: z
-    .string()
-    .min(32, "Refresh secret must be at least 32 chars"),
+
+    // JWT commented out since clerk will likely be used for auth
+
+  // JWT_ACCESS_SECRET: z
+  //   .string()
+  //   .min(32, "Access secret must be at least 32 chars"),
+  // JWT_REFRESH_SECRET: z
+  //   .string()
+  //   .min(32, "Refresh secret must be at least 32 chars"),
+  
   NODE_ENV: z
     .enum(["development", "production", "test"])
     .default("development"),
