@@ -7,6 +7,10 @@ const envSchema = z.object({
   API_FOOTBALL_SECRET_KEY: z
     .string()
     .min(1, "API Football secret key is required"),
+  REDIS_URL: z.url().optional(), // Make optional if you use HOST/PORT
+  REDIS_HOST: z.string().default("localhost"),
+  // Handle string input and transform to number for the app
+  REDIS_PORT: z.string().default("6379").transform(Number),
 
   // JWT commented out since clerk will likely be used for auth
 
