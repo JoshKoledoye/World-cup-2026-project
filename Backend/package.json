@@ -15,11 +15,11 @@
     "axios": "^1.17.0",
     "bullmq": "^5.78.0",
     "cors": "^2.8.6",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-zod-safe": "^3.2.1",
     "ioredis": "^5.11.1",
-    "mongoose": "^9.1.5",
+    "mongoose": "^9.7.0",
     "socket.io": "^4.8.3",
     "socket.io-client": "^4.8.3",
     "zod": "^4.4.3"
@@ -27,8 +27,8 @@
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.6.2",
-    "tsx": "^4.21.0",
+    "@types/node": "^25.9.3",
+    "tsx": "^4.22.4",
     "typescript": "^6.0.3"
   }
 }
