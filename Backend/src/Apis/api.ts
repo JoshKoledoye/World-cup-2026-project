@@ -9,6 +9,8 @@ const api = axios.create({
   },
 });
 
+api.interceptors.response.use((res) => res.data);
+
 async function testApi() {
   const stuff = await api.get("/fixtures?league=39&season=2022");
   const deepClone = JSON.parse(JSON.stringify(stuff.data));
