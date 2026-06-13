@@ -1,5 +1,4 @@
 import { io } from "socket.io-client";
-import { MESSAGE_EVENTS } from "../Config/constants";
 
 const socket = io("http://localhost:5000"); // On frontend this'll be process.env.VITE_API_URL
 
