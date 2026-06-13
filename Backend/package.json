@@ -1,11 +1,11 @@
 {
-  "name": "Chat-App-Backend",
+  "name": "Football-App-Backend",
   "version": "1.0.0",
-  "description": "A chat app, nothing much",
+  "description": "A football app for football fans. Kinda like social media",
   "main": "./src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch  --clear-screen=false --include ./src src/server.ts",
+    "dev": "tsx watch --clear-screen=false --include ./src src/server.ts",
     "build": "tsc",
     "start": "node ./dist/server.js"
   },
