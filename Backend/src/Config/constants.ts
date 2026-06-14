@@ -5,6 +5,12 @@ export const SOCKET_EVENTS = {
   DISCONNECT: "disconnect",
 } as const;
 
+export const API_FOOTBALL_ENDPOINTS  = {
+  FIXTURES: "/fixtures",
+  LEAGUES: "/leagues",
+  TEAMS: "/teams",
+} as const;
+
 export const REDIS_CONFIG = {
   HOST: env.REDIS_URL || env.REDIS_HOST || "localhost",
   PORT: env.REDIS_PORT || 6379,

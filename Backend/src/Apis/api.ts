@@ -11,15 +11,4 @@ const api = axios.create({
 
 api.interceptors.response.use((res) => res.data);
 
-async function testApi() {
-  const stuff = await api.get("/fixtures?league=39&season=2022");
-  const deepClone = JSON.parse(JSON.stringify(stuff.data));
-  console.log(deepClone);
-
-  // write res to file
-
-  fs.writeFileSync("fixtures.json", JSON.stringify(deepClone));
-}
-testApi();
-
 export default api;
