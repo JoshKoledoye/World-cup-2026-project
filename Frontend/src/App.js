@@ -986,18 +986,14 @@ void main() {
           <a
             className="font-label-caps text-label-caps text-on-primary-fixed-variant hover:text-tertiary transition-colors duration-200"
             href="#"
-          >
-            Privacy Policy
-          </a>
+          ></a>
           <a
             className="font-label-caps text-label-caps text-on-primary-fixed-variant hover:text-tertiary transition-colors duration-200"
             href="#"
-          >
-            Cookie Settings
-          </a>
+          ></a>
           <a
             className="font-label-caps text-label-caps text-on-primary-fixed-variant hover:text-tertiary transition-colors duration-200"
-            href="#"
+            href="https://www.youtube.com"
           >
             Contact US
           </a>
