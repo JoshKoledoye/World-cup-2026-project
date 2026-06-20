@@ -3,7 +3,6 @@ import express, { Request, Response } from "express";
 
 // Middlewares
 import cors from "cors";
-import authMiddleware from "./Middlewares/Auth/users.auth";
 
 //Routers
 import userRouter from "./Routers/users.routes";
@@ -19,7 +18,6 @@ app.use(
 
 app.use(express.json());
 
-// app.use(authMiddleware);
 app.use("/users", userRouter);
 
 // Routes
