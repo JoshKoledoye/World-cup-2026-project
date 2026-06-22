@@ -1,4 +1,4 @@
-# World-cup-2026-project
+# TriOnda26
 
 world cup project
 
