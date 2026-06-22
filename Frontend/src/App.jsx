@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import "App.css"
 import trivia from './trivia';
 const MATCH_ENGINE_ENDPOINT = 'https://worldcup26.ir/get/games';
 
