@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import trivia from './trivia';
+import trivia from './components/trivia';
 const MATCH_ENGINE_ENDPOINT = 'https://worldcup26.ir/get/games';
 
 export default function App() {

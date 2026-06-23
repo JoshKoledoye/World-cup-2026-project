@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import triviaDatabase from './trivia.json';
+import triviaDatabase from '../data/trivia.json';
 
 export default function DailyTriviaQuiz() {
   // --- STATE SYSTEM ---
