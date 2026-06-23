@@ -11,7 +11,7 @@ const pollsSchema = new mongoose.Schema(
         text: {
           type: String,
         },
-        votes: {type:Number},
+        votes: { type: Number },
       },
     ],
   },
