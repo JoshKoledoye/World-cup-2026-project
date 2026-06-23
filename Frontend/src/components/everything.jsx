@@ -1,6 +1,33 @@
 import React, { useState, useEffect, useRef } from "react";
-import trivia from "./components/trivia";
+import { Link } from "react-router-dom";
+import { UserButton, useUser } from "@clerk/react";
+import trivia from "./trivia";
 const MATCH_ENGINE_ENDPOINT = "https://worldcup26.ir/get/games";
+
+function AuthControls() {
+  const { isSignedIn } = useUser();
+
+  if (isSignedIn) {
+    return <UserButton afterSignOutUrl="/" />;
+  }
+
+  return (
+    <>
+      <Link
+        to="/sign-in"
+        className="font-label-caps text-label-caps text-on-primary-container opacity-80 hover:opacity-100 hover:text-secondary-fixed-dim transition-colors duration-200 pb-1"
+      >
+        Login
+      </Link>
+      <Link
+        to="/sign-up"
+        className="font-label-caps text-label-caps bg-tertiary-fixed text-on-tertiary-fixed px-3 py-2 hover:bg-tertiary-fixed-dim transition-colors duration-200"
+      >
+        Sign Up
+      </Link>
+    </>
+  );
+}
 
 export default function Everything() {
   // --- STATE SYSTEM INITIALIZATION ---
@@ -380,7 +407,7 @@ void main() {
         </div>
 
         {/* RESPONSIVE MENU LINKS - Visible everywhere */}
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 w-full sm:w-auto">
+        <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 w-full sm:w-auto">
           <button
             onClick={() => setCurrentView("home")}
             className={`font-label-caps text-label-caps transition-colors duration-200 pb-1 ${
@@ -424,6 +451,8 @@ void main() {
           >
             Trivia
           </button>
+
+          <AuthControls />
         </div>
       </nav>
 

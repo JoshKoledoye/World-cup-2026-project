@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@clerk/express": "^2.1.30",
     "axios": "^1.17.0",
     "bullmq": "^5.78.0",
     "cors": "^2.8.6",
