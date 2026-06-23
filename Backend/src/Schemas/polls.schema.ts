@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const PollOptionSchema = z.object({
-	id: z.string(),
 	text: z.string(),
 	votes: z.number().int().nonnegative(),
 });
@@ -9,7 +8,7 @@ export const PollOptionSchema = z.object({
 export const PollSchema = z.object({
 	id: z.string().optional(),
 	question: z.string(),
-	options: z.array(PollOptionSchema),
+	options: z.array(PollOptionSchema).min(2),
 	// createdAt is optional when creating; normalize strings/numbers to Date when present
 	createdAt: z
 		.preprocess((arg) => {
