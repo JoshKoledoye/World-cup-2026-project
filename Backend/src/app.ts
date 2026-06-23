@@ -6,6 +6,7 @@ import cors from "cors";
 
 //Routers
 import userRouter from "./Routers/users.routes";
+import pollsRouter from "./Routers/polls.routes";
 
 // Init
 const app = express();
@@ -19,6 +20,7 @@ app.use(
 app.use(express.json());
 
 app.use("/users", userRouter);
+app.use("/polls", pollsRouter);
 
 // Routes
 app.get("/", (req: Request, res: Response) => {

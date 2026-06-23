@@ -6,3 +6,5 @@ import { pollCreateController } from "../Controllers/polls.controller";
 const router = Router();
 
 router.post("/", validate({ body: PollSchema }), pollCreateController);
+
+export default router;
