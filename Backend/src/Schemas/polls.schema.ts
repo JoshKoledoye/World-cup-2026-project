@@ -7,7 +7,7 @@ export const PollOptionSchema = z.object({
 });
 
 export const PollSchema = z.object({
-	id: z.string(),
+	id: z.string().optional(),
 	question: z.string(),
 	options: z.array(PollOptionSchema),
 	// createdAt is optional when creating; normalize strings/numbers to Date when present

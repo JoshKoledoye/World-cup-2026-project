@@ -1,1 +1,1 @@
-export type { Poll, PollOption } from "../Schemas/poll.schema";
+export type { Poll, PollOption } from "../Schemas/polls.schema";
