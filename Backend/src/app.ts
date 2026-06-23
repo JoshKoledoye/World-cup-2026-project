@@ -4,7 +4,7 @@ import express, { Request, Response } from "express";
 // Middlewares
 import cors from "cors";
 
-//Routers
+// Routers
 import userRouter from "./Routers/users.routes";
 import pollsRouter from "./Routers/polls.routes";
 
