@@ -338,6 +338,21 @@ void main() {
         className="w-full bg-primary py-2 overflow-hidden border-b border-outline-variant z-50 relative"
         data-purpose="match-ticker"
       >
+        {/* Dynamic CSS injected here to guarantee smooth custom ticker scrolling */}
+        <style>{`
+          @keyframes marqueeScroll {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+          }
+          .ticker-scroll {
+            display: inline-flex;
+            animation: marqueeScroll 30s linear infinite;
+          }
+          .ticker-scroll:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+        
         <div className="flex whitespace-nowrap ticker-scroll items-center gap-10">
           {marqueeItems.length > 0 ? (
             [...marqueeItems, ...marqueeItems].map((item, idx) => {
