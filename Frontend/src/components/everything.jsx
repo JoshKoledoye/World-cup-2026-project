@@ -999,7 +999,7 @@ void main() {
 
      {/* FOOTER BAR */}
       <footer
-        className="bg-primary-container dark:bg-blue-200 w-full px-margin-mobile md:px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md border-t border-outline-variant"
+        className="bg-primary-container dark:bg-blue-1000 w-full px-margin-mobile md:px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md border-t border-outline-variant"
         data-purpose="site-footer"
       >
         <div className="flex flex-row items-center gap-sm">
