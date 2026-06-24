@@ -70,7 +70,7 @@ export default function Everything() {
     };
   }, []);
 
-  // 3. SHADER ENGINE EMBEDDED CONTEXT HOOK (Fixed: re-initializes when coming back Home)
+  // 3. SHADER ENGINE EMBEDDED CONTEXT HOOK
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -191,7 +191,7 @@ void main() {
       cancelAnimationFrame(animationFrameId);
       if (resizeObserver) resizeObserver.disconnect();
     };
-  }, [currentView]); // Re-runs layout setup cleanly when returning home
+  }, [currentView]);
 
   // 4. LIVE TELEMETRY REDUCER PARSERS
   const calculateTournamentStats = () => {
@@ -420,7 +420,6 @@ void main() {
           </h1>
         </div>
 
-        {/* RESPONSIVE MENU LINKS - Visible everywhere */}
         <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 w-full sm:w-auto">
           <button
             onClick={() => setCurrentView("home")}
@@ -472,7 +471,6 @@ void main() {
 
       {/* ─── CENTRALISED ROUTING ENVIRONMENT ─── */}
       <main className="relative z-10 mx-auto w-full">
-        {/* VIEW 1: HOME PLATFORM */}
         {currentView === "home" && (
           <>
             {/* BACKGROUND SHADER SHIELD HERO SECTION */}
@@ -592,14 +590,17 @@ void main() {
                   </div>
                 </div>
 
-                {/* MATCH OF THE DAY HERO BLOCK - Fixed desktop text shortening */}
+                {/* MATCH OF THE DAY HERO BLOCK - Restructured into explicit 3-column Grid */}
                 <div
                   className="flex justify-center lg:justify-end w-full"
                   data-purpose="match-of-the-day-hero"
                 >
-                  <div className="glass-card p-6 md:p-xl flex flex-col items-center gap-6 md:gap-8 w-full max-w-md mx-auto">
-                    <div className="flex justify-between items-center w-full gap-2">
-                      <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                  <div className="glass-card p-6 md:p-xl flex flex-col items-center gap-6 md:gap-8 w-full max-w-xl mx-auto">
+                    {/* Fixed row setup: grid layout prevents components overlapping each other */}
+                    <div className="grid grid-cols-3 items-center w-full gap-4">
+                      
+                      {/* HOME SIDE COLUMN */}
+                      <div className="flex flex-col items-center gap-3 w-full min-w-0">
                         <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-primary border-4 border-secondary overflow-hidden shadow-2xl flex items-center justify-center shrink-0">
                           <img
                             id="hero-home-flag"
@@ -612,19 +613,19 @@ void main() {
                             }
                           />
                         </div>
-                        {/* Fixed: Replaced truncate with max-md:truncate & md:whitespace-normal to stop desktop shortening */}
                         <span
                           id="hero-home-name"
-                          className="font-display-lg text-title-md md:text-headline-lg text-on-primary max-w-full max-md:truncate md:whitespace-normal block text-center"
+                          className="font-display-lg text-title-md md:text-headline-lg text-on-primary max-w-full max-md:truncate md:whitespace-normal block text-center break-words"
                         >
                           {fixtures.length > 0 ? heroHomeName : "USA"}
                         </span>
                       </div>
 
-                      <div className="flex flex-col items-center shrink-0 px-2">
+                      {/* SCOREBOARD CENTER COLUMN */}
+                      <div className="flex flex-col items-center justify-center shrink-0 w-full text-center px-1">
                         <span
                           id="hero-score"
-                          className="font-display-lg text-headline-lg md:text-display-lg text-tertiary-fixed whitespace-nowrap"
+                          className="font-display-lg text-headline-lg md:text-display-lg text-tertiary-fixed tracking-tight"
                         >
                           {fixtures.length > 0
                             ? `${heroHomeScore} - ${heroAwayScore}`
@@ -632,13 +633,14 @@ void main() {
                         </span>
                         <span
                           id="hero-status"
-                          className="text-on-primary-container font-label-caps text-label-caps tracking-widest text-[10px] md:text-xs"
+                          className="text-on-primary-container font-label-caps text-label-caps tracking-widest text-[9px] md:text-xs mt-1 block"
                         >
                           {fixtures.length > 0 ? heroCenterLabel : "'74"}
                         </span>
                       </div>
 
-                      <div className="flex flex-col items-center gap-3 flex-1 min-w-0">
+                      {/* AWAY SIDE COLUMN */}
+                      <div className="flex flex-col items-center gap-3 w-full min-w-0">
                         <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-primary border-4 border-on-primary-container overflow-hidden shadow-2xl flex items-center justify-center shrink-0">
                           <img
                             id="hero-away-flag"
@@ -651,14 +653,14 @@ void main() {
                             }
                           />
                         </div>
-                        {/* Fixed: Replaced truncate with max-md:truncate & md:whitespace-normal to stop desktop shortening */}
                         <span
                           id="hero-away-name"
-                          className="font-display-lg text-title-md md:text-headline-lg text-on-primary max-w-full max-md:truncate md:whitespace-normal block text-center"
+                          className="font-display-lg text-title-md md:text-headline-lg text-on-primary max-w-full max-md:truncate md:whitespace-normal block text-center break-words"
                         >
                           {fixtures.length > 0 ? heroAwayName : "MEX"}
                         </span>
                       </div>
+
                     </div>
 
                     <div className="w-full h-1 bg-white/10 relative">
