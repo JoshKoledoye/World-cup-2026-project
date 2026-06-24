@@ -22,10 +22,9 @@ The Polls API is exposed at `/polls` and supports public read and vote operation
 
 ### Environment configuration
 
-The admin user(s) are configured with env vars in the backend process.
+The admin user is configured with env vars in the backend process.
 
-- `POLL_ADMIN_ID`: single Clerk user ID for admin access
-- `POLL_ADMIN_IDS`: optional comma-separated list of Clerk user IDs
+- `ADMIN_ID`: single Clerk user ID for admin access
 
 If neither is set, admin routes return `403 Forbidden`.
 
@@ -45,6 +44,7 @@ Authentication is expected to be provided by Clerk via bearer token headers.
 - Path: `/polls`
 - Auth: none
 - Response:
+
   ```json
   {
     "success": true,
@@ -65,6 +65,7 @@ Authentication is expected to be provided by Clerk via bearer token headers.
 - Path: `/polls/:id`
 - Auth: none
 - Response:
+
   ```json
   {
     "success": true,
@@ -83,12 +84,15 @@ Authentication is expected to be provided by Clerk via bearer token headers.
 - Path: `/polls/:id/vote`
 - Auth: required
 - Body:
+
   ```json
   {
     "optionIndex": 0
   }
   ```
+
 - Response:
+
   ```json
   {
     "success": true,
@@ -103,6 +107,7 @@ Authentication is expected to be provided by Clerk via bearer token headers.
 - Path: `/polls`
 - Auth: admin required
 - Body:
+
   ```json
   {
     "question": "Who will win?",
@@ -112,7 +117,9 @@ Authentication is expected to be provided by Clerk via bearer token headers.
     ]
   }
   ```
+
 - Response:
+
   ```json
   {
     "success": true,
@@ -128,6 +135,7 @@ Authentication is expected to be provided by Clerk via bearer token headers.
 - Auth: admin required
 - Body: same shape as create (but only valid fields are required)
 - Response:
+
   ```json
   {
     "success": true,
@@ -142,6 +150,7 @@ Authentication is expected to be provided by Clerk via bearer token headers.
 - Path: `/polls/:id`
 - Auth: admin required
 - Response:
+
   ```json
   {
     "success": true,
@@ -160,18 +169,3 @@ Standard error response shape:
   "error": "Poll not found"
 }
 ```
-
-### Recommended delivery for other developers
-
-1. **Markdown docs**: keep the Polls API section in `Backend/README.md` or a dedicated `docs/polls-api.md` for humans and agents.
-2. **OpenAPI / Swagger**: generate a machine-readable contract for frontend developers and automation.
-3. **Client wrapper**: provide a shared API client module (`Frontend/src/apis/polls.api.js`) so frontend code can use typed methods instead of raw fetch.
-4. **Postman / Insomnia collection**: add examples for quick manual testing.
-5. **Inline comments**: keep route auth requirements visible in code and README.
-
-### Best practice for teams and agents
-
-- Use a single source of truth: API contract + example payloads in Markdown.
-- Pair the contract with a generated client or API helper.
-- Publish the docs near the backend code and reference them from frontend onboarding.
-- Agents can consume Markdown or OpenAPI most easily, so both are ideal.
