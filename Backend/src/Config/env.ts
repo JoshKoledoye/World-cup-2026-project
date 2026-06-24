@@ -12,6 +12,8 @@ const envSchema = z.object({
   // Handle string input and transform to number for the app
   REDIS_PORT: z.string().default("6379").transform(Number),
 
+  ADMIN_ID: z.string().min(1),
+
   // JWT commented out since clerk will likely be used for auth
 
   // JWT_ACCESS_SECRET: z

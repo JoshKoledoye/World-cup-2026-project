@@ -1,5 +1,6 @@
 // Main
 import express, { Request, Response } from "express";
+import { clerkMiddleware } from "@clerk/express";
 
 // Middlewares
 import cors from "cors";
@@ -7,6 +8,7 @@ import cors from "cors";
 // Routers
 import userRouter from "./Routers/users.routes";
 import pollsRouter from "./Routers/polls.routes";
+import requireAuth from "./Middlewares/Auth/users.auth";
 
 // Init
 const app = express();
@@ -19,8 +21,10 @@ app.use(
 
 app.use(express.json());
 
+app.use(clerkMiddleware());
+
 app.use("/users", userRouter);
-app.use("/polls", pollsRouter);
+app.use("/polls", requireAuth, pollsRouter);
 
 // Routes
 app.get("/", (req: Request, res: Response) => {
