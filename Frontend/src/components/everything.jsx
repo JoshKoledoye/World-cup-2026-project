@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { UserButton, useUser } from "@clerk/react";
+import PollsPanel from "./PollsPanel";
 import trivia from "./trivia";
 const MATCH_ENGINE_ENDPOINT = "https://worldcup26.ir/get/games";
 
@@ -960,17 +961,8 @@ void main() {
 
         {/* VIEW 3: LIVE FAN EVENTS & POLLS */}
         {currentView === "events" && (
-          <div
-            className="text-white p-8 animate-fade-in max-w-7xl mx-auto min-h-[50vh]"
-            data-backend-target="events-view"
-          >
-            <h2 className="text-title-md font-display-lg text-on-primary uppercase tracking-wider mb-4">
-              Fan Engagement Zone
-            </h2>
-            <p className="text-body-md text-on-primary-container opacity-70">
-              [Backend Hook: Interactive Live Poll Submission, Global Fan Event
-              Feeds, and User Voting Submissions]
-            </p>
+          <div data-backend-target="events-view">
+            <PollsPanel />
           </div>
         )}
 

@@ -10,8 +10,10 @@ const pollsSchema = new mongoose.Schema(
       {
         text: {
           type: String,
+          required: true,
+          trim: true,
         },
-        votes: { type: Number },
+        votes: { type: Number, default: 0, min: 0 },
       },
     ],
   },
