@@ -1,6 +1,7 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { SignIn, SignUp } from "@clerk/react";
 import Everything from "./components/everything";
+import PollsPanel from "./components/PollsPanel";
 
 function AuthPage({ mode }) {
   const isSignIn = mode === "sign-in";
@@ -73,6 +74,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Everything />} />
+        <Route path="/admin/polls" element={<PollsPanel />} />
         <Route path="/sign-in/*" element={<AuthPage mode="sign-in" />} />
         <Route path="/sign-up/*" element={<AuthPage mode="sign-up" />} />
       </Routes>

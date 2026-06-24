@@ -1,9 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-
-const API_BASE = (import.meta.env.VITE_appAPI_URL || "http://localhost:5000").replace(
-  /\/$/,
-  "",
-);
+import usePoll from "../hooks/usePoll.js";
 
 const emptyForm = {
   question: "",
@@ -18,15 +14,22 @@ function normalizePoll(poll) {
 }
 
 export default function PollsPanel() {
-  const [polls, setPolls] = useState([]);
   const [form, setForm] = useState(emptyForm);
   const [editingPoll, setEditingPoll] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
+  const [polls, setPolls] = useState([]);
   const [deletingPollId, setDeletingPollId] = useState(null);
   const [votingPollKey, setVotingPollKey] = useState("");
   const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [formError, setFormError] = useState("");
+  const {
+    loading,
+    error,
+    getPolls,
+    createPoll,
+    updatePoll,
+    votePoll,
+    deletePoll,
+  } = usePoll();
 
   const sortedPolls = useMemo(
     () =>
@@ -36,33 +39,12 @@ export default function PollsPanel() {
     [polls],
   );
 
-  async function requestPolls(path = "/polls", options = {}) {
-    const response = await fetch(`${API_BASE}${path}`, {
-      headers: {
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
-      ...options,
-    });
-    const data = await response.json().catch(() => ({}));
-
-    if (!response.ok || data.success === false) {
-      throw new Error(data.error || "Poll request failed");
-    }
-
-    return data;
-  }
-
   async function loadPolls() {
     try {
-      setIsLoading(true);
-      setError("");
-      const data = await requestPolls();
-      setPolls((data.polls || []).map(normalizePoll));
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsLoading(false);
+      const result = await getPolls();
+      setPolls((result.polls || []).map(normalizePoll));
+    } catch {
+      // error state is handled by usePoll
     }
   }
 
@@ -100,7 +82,7 @@ export default function PollsPanel() {
       options: poll.options.map((option) => option.text),
     });
     setMessage("");
-    setError("");
+    setFormError("");
   }
 
   function resetForm() {
@@ -108,26 +90,17 @@ export default function PollsPanel() {
     setForm(emptyForm);
   }
 
-  function replacePoll(nextPoll) {
-    const normalizedPoll = normalizePoll(nextPoll);
-    setPolls((current) =>
-      current.some((poll) => poll.id === normalizedPoll.id)
-        ? current.map((poll) => (poll.id === normalizedPoll.id ? normalizedPoll : poll))
-        : [normalizedPoll, ...current],
-    );
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
-    setError("");
     setMessage("");
+    setFormError("");
 
     const cleanOptions = form.options
       .map((option) => option.trim())
       .filter(Boolean);
 
     if (!form.question.trim() || cleanOptions.length < 2) {
-      setError("Add a question and at least two answer options.");
+      setFormError("Add a question and at least two answer options.");
       return;
     }
 
@@ -140,21 +113,22 @@ export default function PollsPanel() {
     };
 
     try {
-      setIsSaving(true);
-      const data = await requestPolls(
-        editingPoll ? `/polls/${editingPoll.id}` : "/polls",
-        {
-          method: editingPoll ? "PUT" : "POST",
-          body: JSON.stringify(payload),
-        },
-      );
-      replacePoll(data.poll);
-      setMessage(editingPoll ? "Poll updated." : "Poll created.");
+      if (editingPoll) {
+        const result = await updatePoll(editingPoll.id, payload);
+        setPolls((current) =>
+          current.map((poll) =>
+            poll.id === editingPoll.id ? normalizePoll(result.poll) : poll,
+          ),
+        );
+        setMessage("Poll updated.");
+      } else {
+        const result = await createPoll(payload);
+        setPolls((current) => [normalizePoll(result.poll), ...current]);
+        setMessage("Poll created.");
+      }
       resetForm();
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setIsSaving(false);
+    } catch {
+      // error state is handled by usePoll
     }
   }
 
@@ -162,15 +136,15 @@ export default function PollsPanel() {
     const voteKey = `${pollId}-${optionIndex}`;
     try {
       setVotingPollKey(voteKey);
-      setError("");
-      const data = await requestPolls(`/polls/${pollId}/vote`, {
-        method: "PATCH",
-        body: JSON.stringify({ optionIndex }),
-      });
-      replacePoll(data.poll);
+      const result = await votePoll(pollId, optionIndex);
+      setPolls((current) =>
+        current.map((poll) =>
+          poll.id === pollId ? normalizePoll(result.poll) : poll,
+        ),
+      );
       setMessage("Vote recorded.");
-    } catch (err) {
-      setError(err.message);
+    } catch {
+      // error state is handled by usePoll
     } finally {
       setVotingPollKey("");
     }
@@ -179,13 +153,12 @@ export default function PollsPanel() {
   async function handleDelete(pollId) {
     try {
       setDeletingPollId(pollId);
-      setError("");
-      await requestPolls(`/polls/${pollId}`, { method: "DELETE" });
+      await deletePoll(pollId);
       setPolls((current) => current.filter((poll) => poll.id !== pollId));
       if (editingPoll?.id === pollId) resetForm();
       setMessage("Poll deleted.");
-    } catch (err) {
-      setError(err.message);
+    } catch {
+      // error state is handled by usePoll
     } finally {
       setDeletingPollId(null);
     }
@@ -263,23 +236,23 @@ export default function PollsPanel() {
             ))}
           </div>
 
-          {(error || message) && (
+          {(formError || error || message) && (
             <p
               className={`font-body-md ${
-                error ? "text-error" : "text-on-tertiary-container"
+                formError || error ? "text-error" : "text-on-tertiary-container"
               }`}
             >
-              {error || message}
+              {formError || error || message}
             </p>
           )}
 
           <div className="flex flex-wrap gap-3">
             <button
               type="submit"
-              disabled={isSaving}
+              disabled={loading}
               className="bg-secondary text-on-secondary px-5 py-3 font-label-caps text-label-caps hover:bg-secondary-container disabled:cursor-wait disabled:opacity-70"
             >
-              {isSaving ? "Saving..." : editingPoll ? "Save Changes" : "Create Poll"}
+              {loading ? "Saving..." : editingPoll ? "Save Changes" : "Create Poll"}
             </button>
             {editingPoll && (
               <button
@@ -313,7 +286,7 @@ export default function PollsPanel() {
             </button>
           </div>
 
-          {isLoading ? (
+          {loading ? (
             <div className="border border-outline-variant bg-primary-container p-md text-on-primary-container font-body-md">
               Loading polls...
             </div>
