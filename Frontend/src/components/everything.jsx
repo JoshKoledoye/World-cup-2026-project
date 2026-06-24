@@ -323,7 +323,7 @@ void main() {
             />
           </div>
           <div className="flex flex-col items-center gap-1">
-            <h2 className="font-display-lg text-title-md text-on-primary uppercase tracking-[0.2em]">
+            <h2 className="font-display-lg text-title-md text-white uppercase tracking-[0.2em]">
               TriOnda26
             </h2>
             <p className="font-label-caps text-[10px] text-on-primary-container tracking-widest animate-pulse">
@@ -338,7 +338,6 @@ void main() {
         className="w-full bg-primary py-2 overflow-hidden border-b border-outline-variant z-50 relative"
         data-purpose="match-ticker"
       >
-        {/* Dynamic CSS injected here to guarantee smooth custom ticker scrolling */}
         <style>{`
           @keyframes marqueeScroll {
             0% { transform: translate3d(0, 0, 0); }
@@ -593,7 +592,7 @@ void main() {
                   </div>
                 </div>
 
-                {/* MATCH OF THE DAY HERO BLOCK - Fixed visibility on small/mobile layouts */}
+                {/* MATCH OF THE DAY HERO BLOCK - Fixed desktop text shortening */}
                 <div
                   className="flex justify-center lg:justify-end w-full"
                   data-purpose="match-of-the-day-hero"
@@ -613,9 +612,10 @@ void main() {
                             }
                           />
                         </div>
+                        {/* Fixed: Replaced truncate with max-md:truncate & md:whitespace-normal to stop desktop shortening */}
                         <span
                           id="hero-home-name"
-                          className="font-display-lg text-title-md md:text-headline-lg text-on-primary max-w-full truncate block text-center"
+                          className="font-display-lg text-title-md md:text-headline-lg text-on-primary max-w-full max-md:truncate md:whitespace-normal block text-center"
                         >
                           {fixtures.length > 0 ? heroHomeName : "USA"}
                         </span>
@@ -651,9 +651,10 @@ void main() {
                             }
                           />
                         </div>
+                        {/* Fixed: Replaced truncate with max-md:truncate & md:whitespace-normal to stop desktop shortening */}
                         <span
                           id="hero-away-name"
-                          className="font-display-lg text-title-md md:text-headline-lg text-on-primary max-w-full truncate block text-center"
+                          className="font-display-lg text-title-md md:text-headline-lg text-on-primary max-w-full max-md:truncate md:whitespace-normal block text-center"
                         >
                           {fixtures.length > 0 ? heroAwayName : "MEX"}
                         </span>
@@ -997,9 +998,9 @@ void main() {
         )}
       </main>
 
-     {/* FOOTER BAR */}
+      {/* FOOTER BAR */}
       <footer
-        className="bg-primary-container dark:bg-blue-1000 w-full px-margin-mobile md:px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md border-t border-outline-variant"
+        className="bg-primary-container dark:bg-blue-950 w-full px-margin-mobile md:px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md border-t border-outline-variant"
         data-purpose="site-footer"
       >
         <div className="flex flex-row items-center gap-sm">
@@ -1017,7 +1018,7 @@ void main() {
           />
         </div>
         <div className="flex flex-col gap-4 items-center md:items-start">
-          <h1 className="font-display-lg text-white text-headline-lg text-on-primary-fixed uppercase">
+          <h1 className="font-display-lg text-headline-lg text-white uppercase">
             TriOnda 26
           </h1>
           <p className="font-body-md text-on-primary-fixed-variant text-center md:text-left max-w-sm">
