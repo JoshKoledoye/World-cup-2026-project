@@ -54,10 +54,6 @@ Thumbs.db
 .vscode/settings.json
 .vscode/extensions.json
 
-# Backend specific
-.env.development
-.env.production
-
 # Frontend specific
 coverage/
 
