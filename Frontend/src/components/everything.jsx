@@ -1003,7 +1003,7 @@ void main() {
         </div>
         <div className="flex flex-col gap-4 items-center md:items-start">
           <h1 className="font-display-lg text-headline-lg text-on-primary-fixed uppercase">
-            FIFA 2026
+            TriOnda 26
           </h1>
           <p className="font-body-md text-on-primary-fixed-variant text-center md:text-left max-w-sm">
             ©2026 TriOnda (This is a fan project, it does not hold any official
