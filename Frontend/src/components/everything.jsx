@@ -980,7 +980,8 @@ void main() {
         {/* VIEW 3: LIVE FAN EVENTS & POLLS */}
         {currentView === "events" && (
           <div data-backend-target="events-view">
-            <PollsPanel />
+            Nothing rto see here. 
+            Josh will add user UI here. 
           </div>
         )}
 
